@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'my_work_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -68,7 +69,21 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
-      body: _selectedIndex == 0 ? _buildHomeBody() : _buildPlaceholderPage(_selectedIndex),
+      body: Column(
+        children: [
+          Expanded(
+            child: IndexedStack(
+              index: _selectedIndex,
+              children: [
+                _buildHomeBody(),
+                const MyWorkScreen(), // <-- THIS IS THE FIX!
+                _buildPlaceholderPage(2),
+                _buildPlaceholderPage(3),
+              ],
+            ),
+          ),
+        ],
+      ),
       bottomNavigationBar: _buildBottomNav(),
     );
   }
@@ -367,17 +382,17 @@ class _HomeScreenState extends State<HomeScreen> {
   // PLACEHOLDER PAGES FOR OTHER TABS
   // ==========================================
   Widget _buildPlaceholderPage(int index) {
-    final titles = ['My Work', 'Payments', 'Profile'];
-    final icons = [Icons.work, Icons.account_balance_wallet, Icons.person];
+    final titles = ['Payments', 'Profile'];
+    final icons = [Icons.account_balance_wallet, Icons.person];
     
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icons[index - 1], size: 80, color: Colors.grey.shade300),
+          Icon(icons[index - 2], size: 80, color: Colors.grey.shade300),
           const SizedBox(height: 20),
           Text(
-            '${titles[index - 1]} Screen',
+            '${titles[index - 2]} Screen',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.grey.shade600),
           ),
           const SizedBox(height: 10),
