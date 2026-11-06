@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'skill_selection_screen.dart';
+import 'employer_onboarding_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -47,13 +48,23 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void _verifyOtp() {
+    void _verifyOtp() {
     if (_otpController.text == _mockOtp) {
-      // OTP Verified! Navigate to Skill Selection
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const SkillSelectionScreen()),
-      );
+      // MOCK LOGIC: For demo, let's say phone number ending in '00' is an employer
+      bool isEmployer = _phoneController.text.endsWith('00'); 
+
+      if (isEmployer) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const EmployerOnboardingScreen()),
+        );
+      } else {
+        // Default to worker
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const SkillSelectionScreen()),
+        );
+      }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
