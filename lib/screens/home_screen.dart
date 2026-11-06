@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'my_work_screen.dart';
-
+import 'payments_screen.dart';
+import 'profile_screen.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -76,9 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
               index: _selectedIndex,
               children: [
                 _buildHomeBody(),
-                const MyWorkScreen(), // <-- THIS IS THE FIX!
-                _buildPlaceholderPage(2),
-                _buildPlaceholderPage(3),
+                const MyWorkScreen(), 
+                PaymentsScreen(),
+                const ProfileScreen(),
               ],
             ),
           ),
